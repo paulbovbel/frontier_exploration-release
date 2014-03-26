@@ -2,9 +2,13 @@
 
 <launch>
 
-    <node pkg="frontier_exploration" type="explore_client" respawn="false" name="explore_client" output="screen"/>
+    <node pkg="frontier_exploration" type="explore_client" respawn="false" name="explore_client" output="screen">
+        <param name="proximity" type="double" value="0.2"/>
+    </node>
 
-    <node pkg="frontier_exploration" type="explore_server" respawn="false" name="explore_server" output="screen">
+    <node pkg="frontier_exploration" type="explore_server" respawn="false" name="explore_server" output="screen" >
+
+        <param name="frequency" type="double" value="0.5"/>
 
         <rosparam ns="explore_costmap">
             #Sample parameters
@@ -25,18 +29,19 @@
 
             plugins: 
 
-                #Must have external map or some sort of sensor to clear out obstacles
+                #Static map optional, but should be first if present
                 - {name: static,                  type: "costmap_2d::StaticLayer"}            
                 - {name: explore_boundary,        type: "frontier_exploration::BoundedExploreLayer"}
+                #Must have some sort of sensor to clear out obstacles
                 - {name: explore_sensor,          type: "costmap_2d::ObstacleLayer"}
-
+                #inflation recommended to fill any gaps
                 - {name: inflation,               type: "costmap_2d::InflationLayer"}
 
             static:
-                #Can pull data from static map or another non-rolling costmap, make sure global_frame is the same
+                #Can pull data from gmapping, map_server or a non-rolling costmap, make sure global_frame is the same
                 
-                #map_topic: /map
-                map_topic: move_base/global_costmap/costmap   
+                map_topic: /map
+                #map_topic: move_base/global_costmap/costmap   
                 subscribe_to_updates: true
 
             explore_boundary:
