@@ -13,8 +13,8 @@ find_package(catkin REQUIRED COMPONENTS
   message_generation
 )
 
-find_package(Boost REQUIRED COMPONENTS system)
-find_package(PCL REQUIRED)
+find_package(Boost REQUIRED)
+find_package(PCL REQUIRED COMPONENTS common)
 
 add_message_files(
   FILES
@@ -55,13 +55,16 @@ catkin_package(
 include_directories(include ${catkin_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS} ${PCL_INCLUDE_DIRS})
 
 add_library(explore_costmap plugins/bounded_explore_layer.cpp)
-target_link_libraries(explore_costmap ${catkin_LIBRARIES} ${PCL_LIBRARIES} ${Boost_LIBRARIES})
+target_link_libraries(explore_costmap ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PCL_LIBRARIES})
+add_dependencies(explore_costmap ${PROJECT_NAME}_generate_messages_cpp ${catkin_EXPORTED_TARGETS})
 
 add_executable(explore_server src/explore_server.cpp)
 target_link_libraries(explore_server ${catkin_LIBRARIES})
+add_dependencies(explore_server ${PROJECT_NAME}_generate_messages_cpp ${catkin_EXPORTED_TARGETS})
 
 add_executable(explore_client src/explore_client.cpp)
 target_link_libraries(explore_client ${catkin_LIBRARIES})
+add_dependencies(explore_client ${PROJECT_NAME}_generate_messages_cpp ${catkin_EXPORTED_TARGETS})
 
 install(TARGETS explore_server explore_client
         RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
