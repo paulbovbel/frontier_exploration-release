@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>frontier_exploration</name>
-  <version>0.1.1</version>
+  <version>0.1.2</version>
   <description>ROS Node and Costmap 2D plugin layer for frontier exploration</description>
 
   <maintainer email="paul@bovbel.com">Paul Bovbel</maintainer>
@@ -33,6 +33,13 @@
 
   <build_depend>common_msgs</build_depend>
   <run_depend>common_msgs</run_depend>
+
+  <build_depend>visualization_msgs</build_depend>
+  <run_depend>visualization_msgs</run_depend>
+
+  <build_depend>move_base_msgs</build_depend>
+  <run_depend>move_base_msgs</run_depend>
+
   <build_depend>libpcl-all-dev</build_depend>
   <run_depend>libpcl-all</run_depend>
 
