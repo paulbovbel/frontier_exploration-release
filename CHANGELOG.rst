@@ -2,6 +2,16 @@
 Changelog for package frontier_exploration
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.1.2 (2014-03-27)
+------------------
+* fix message dependencies
+* fix goal aliasing corner case
+* fix empty frame name
+* Update README.md
+* accomodate for empty boundaries
+* parametrize goal aliasing for redundant move base goals
+* Contributors: Paul Bovbel
+
 0.1.1 (2014-03-26)
 ------------------
 * fix build dependency
