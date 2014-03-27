@@ -4,12 +4,14 @@ project(frontier_exploration)
 find_package(catkin REQUIRED COMPONENTS
   costmap_2d
   dynamic_reconfigure
+  move_base_msgs
   geometry_msgs
   roscpp
   std_msgs
   tf
   actionlib
   actionlib_msgs
+  visualization_msgs
   message_generation
 )
 
@@ -34,7 +36,7 @@ add_action_files(
 
 generate_messages(
   DEPENDENCIES
-  geometry_msgs   std_msgs  actionlib_msgs
+  geometry_msgs std_msgs  actionlib_msgs move_base_msgs visualization_msgs
 )
 
 catkin_package(
@@ -56,15 +58,15 @@ include_directories(include ${catkin_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS} ${PCL_I
 
 add_library(explore_costmap plugins/bounded_explore_layer.cpp)
 target_link_libraries(explore_costmap ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PCL_LIBRARIES})
-add_dependencies(explore_costmap ${PROJECT_NAME}_generate_messages_cpp ${catkin_EXPORTED_TARGETS})
+add_dependencies(explore_costmap ${catkin_EXPORTED_TARGETS})
 
 add_executable(explore_server src/explore_server.cpp)
 target_link_libraries(explore_server ${catkin_LIBRARIES})
-add_dependencies(explore_server ${PROJECT_NAME}_generate_messages_cpp ${catkin_EXPORTED_TARGETS})
+add_dependencies(explore_server ${catkin_EXPORTED_TARGETS})
 
 add_executable(explore_client src/explore_client.cpp)
 target_link_libraries(explore_client ${catkin_LIBRARIES})
-add_dependencies(explore_client ${PROJECT_NAME}_generate_messages_cpp ${catkin_EXPORTED_TARGETS})
+add_dependencies(explore_client ${catkin_EXPORTED_TARGETS})
 
 install(TARGETS explore_server explore_client
         RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
