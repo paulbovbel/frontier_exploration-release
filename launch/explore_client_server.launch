@@ -64,4 +64,5 @@
                 inflation_radius: 0.15
       </rosparam>
     </node>
+
 </launch>
