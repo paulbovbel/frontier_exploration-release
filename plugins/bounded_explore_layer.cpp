@@ -146,12 +146,13 @@ namespace frontier_exploration
             ROS_WARN("Falling back to closest frontier selection");
             next_frontier.pose.position = selected.initial;
         }
-        next_frontier.pose.orientation = tf::createQuaternionMsgFromYaw( yawBetweenTwoPoints(start_pose.pose.position, next_frontier.pose.position) );
+
+        next_frontier.pose.orientation = tf::createQuaternionMsgFromYaw( yawOfVector(start_pose.pose.position, next_frontier.pose.position) );
         return true;
 
     }
 
-    std::list<Frontier> BoundedExploreLayer::findFrontiers(geometry_msgs::Point position, costmap_2d::Costmap2D* costmap){
+    std::list<frontier_exploration::Frontier> BoundedExploreLayer::findFrontiers(geometry_msgs::Point position, costmap_2d::Costmap2D* costmap){
 
         std::list<Frontier> frontier_list;
 
@@ -212,7 +213,7 @@ namespace frontier_exploration
         return frontier_list;
     }
 
-    Frontier BoundedExploreLayer::buildFrontier(unsigned int initial_cell, unsigned int robot, bool* frontier_flag, const unsigned char* map){
+    frontier_exploration::Frontier BoundedExploreLayer::buildFrontier(unsigned int initial_cell, unsigned int robot, bool* frontier_flag, const unsigned char* map){
 
         //initialize frontier structure
         Frontier output;
