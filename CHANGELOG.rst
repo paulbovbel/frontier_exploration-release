@@ -2,6 +2,14 @@
 Changelog for package frontier_exploration
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.1.9 (2014-04-02)
+------------------
+* fix regression
+* refactor for testing
+* fix stuck movement with 0 frequency
+* new launch file examples
+* Contributors: Paul Bovbel
+
 0.1.8 (2014-03-28)
 ------------------
 * revert launch file to general form
