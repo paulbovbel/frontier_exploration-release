@@ -1,0 +1,12 @@
+Source: ros-hydro-frontier-exploration
+Section: misc
+Priority: extra
+Maintainer: Paul Bovbel <paul@bovbel.com>
+Build-Depends: debhelper (>= 7.0.50~), libpcl-1.7-all-dev, ros-hydro-actionlib, ros-hydro-actionlib-msgs, ros-hydro-catkin, ros-hydro-common-msgs, ros-hydro-costmap-2d, ros-hydro-dynamic-reconfigure, ros-hydro-geometry-msgs, ros-hydro-message-generation, ros-hydro-move-base-msgs, ros-hydro-roscpp, ros-hydro-std-msgs, ros-hydro-tf, ros-hydro-visualization-msgs
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-hydro-frontier-exploration
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libpcl-1.7-all, ros-hydro-actionlib, ros-hydro-actionlib-msgs, ros-hydro-common-msgs, ros-hydro-costmap-2d, ros-hydro-dynamic-reconfigure, ros-hydro-geometry-msgs, ros-hydro-message-runtime, ros-hydro-move-base-msgs, ros-hydro-roscpp, ros-hydro-std-msgs, ros-hydro-tf, ros-hydro-visualization-msgs
+Description: The frontier_exploration package provides a costmap_2d layer plugin that implements helper functions required for frontier exploration. An actionlib) server and client are also provided as an implementation example.
