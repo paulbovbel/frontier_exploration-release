@@ -56,7 +56,7 @@ catkin_package(
 
 include_directories(include ${catkin_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS} ${PCL_INCLUDE_DIRS})
 
-add_library(explore_costmap plugins/bounded_explore_layer.cpp)
+add_library(explore_costmap plugins/bounded_explore_layer.cpp src/frontier_search.cpp)
 target_link_libraries(explore_costmap ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PCL_LIBRARIES})
 add_dependencies(explore_costmap ${PROJECT_NAME}_generate_messages_cpp ${catkin_EXPORTED_TARGETS})
 
@@ -80,8 +80,8 @@ if(CATKIN_ENABLE_TESTING)
   include_directories(${GTEST_INCLUDE_DIRS})
   link_directories(${GTEST_LIBRARY_DIRS})
 
-  catkin_add_gtest(bounded_explore_layer_tests src/test/bounded_explore_layer_tests.cpp)
-  target_link_libraries(bounded_explore_layer_tests explore_costmap)
+  catkin_add_gtest(frontier_search_tests src/test/frontier_search_tests.cpp)
+  target_link_libraries(frontier_search_tests explore_costmap)
 
   catkin_add_gtest(geometry_tools_tests src/test/geometry_tools_tests.cpp)
   target_link_libraries(geometry_tools_tests explore_costmap)
