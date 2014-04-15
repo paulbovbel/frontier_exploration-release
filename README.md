@@ -1,3 +1,22 @@
+## frontier_exploration (hydro) - 0.2.1-0
+
+The packages in the `frontier_exploration` repository were released into the `hydro` distro by running `/usr/local/bin/bloom-release --rosdistro hydro --track hydro frontier_exploration` on `Tue, 15 Apr 2014 22:51:40 -0000`
+
+The `frontier_exploration` package was released.
+
+Version of package(s) in repository `frontier_exploration`:
+- rosdistro version: `0.2.0-0`
+- old version: `0.2.0-0`
+- new version: `0.2.1-0`
+
+Versions of tools used:
+- bloom version: `0.5.4`
+- catkin_pkg version: `0.2.1`
+- rosdep version: `0.10.27`
+- rosdistro version: `0.3.4`
+- vcstools version: `0.1.33`
+
+
 ## frontier_exploration (hydro) - 0.2.0-0
 
 User `paul@asblab-paulpc` released the packages in the `frontier_exploration` repository into the `hydro` distro by running `/usr/bin/bloom-release --rosdistro hydro --track hydro frontier_exploration` on `Fri, 04 Apr 2014 22:37:13 -0000`
