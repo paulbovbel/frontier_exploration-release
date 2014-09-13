@@ -34,7 +34,6 @@ public:
     FrontierExplorationServer(std::string name) :
         tf_listener_(ros::Duration(10.0)),
         private_nh_("~"),
-        explore_costmap_ros_(0),
         as_(nh_, name, boost::bind(&FrontierExplorationServer::executeCb, this, _1), false),
         move_client_("move_base",true),
         retry_(5)
@@ -45,10 +44,6 @@ public:
         as_.start();
     }
 
-    ~FrontierExplorationServer(){
-        delete explore_costmap_ros_;
-    }
-
 private:
 
     ros::NodeHandle nh_;
@@ -56,7 +51,7 @@ private:
     tf::TransformListener tf_listener_;
     actionlib::SimpleActionServer<frontier_exploration::ExploreTaskAction> as_;
 
-    costmap_2d::Costmap2DROS* explore_costmap_ros_;
+    boost::shared_ptr<costmap_2d::Costmap2DROS> explore_costmap_ros_;
     double frequency_, goal_aliasing_;
     bool success_, moving_;
     int retry_;
@@ -79,7 +74,7 @@ private:
 
         //create exploration costmap
         if(!explore_costmap_ros_){
-            explore_costmap_ros_ = new costmap_2d::Costmap2DROS("explore_costmap", tf_listener_);
+            explore_costmap_ros_ = boost::shared_ptr<costmap_2d::Costmap2DROS>(new costmap_2d::Costmap2DROS("explore_costmap", tf_listener_));
         }else{
             explore_costmap_ros_->resetLayers();
         }
@@ -112,22 +107,32 @@ private:
         while(ros::ok() && as_.isActive()){
 
             frontier_exploration::GetNextFrontier srv;
-            tf::Stamped<tf::Pose> robot_pose;
+
+            //placeholder for next goal to be sent to move base
+            geometry_msgs::PoseStamped goal_pose;
 
             //get current robot pose in frame of exploration boundary
+            tf::Stamped<tf::Pose> robot_pose;
             explore_costmap_ros_->getRobotPose(robot_pose);
+
+            //provide current robot pose to the frontier search service request
             tf::poseStampedTFToMsg(robot_pose,srv.request.start_pose);
 
             //evaluate if robot is within exploration boundary using robot_pose in boundary frame
-            geometry_msgs::PoseStamped goal_pose, eval_pose = srv.request.start_pose;
+            geometry_msgs::PoseStamped eval_pose = srv.request.start_pose;
             if(eval_pose.header.frame_id != goal->explore_boundary.header.frame_id){
                 tf_listener_.transformPose(goal->explore_boundary.header.frame_id, srv.request.start_pose, eval_pose);
             }
 
-            //check if robot is not within exploration boundary, return to center
+            //check if robot is not within exploration boundary and needs to return to center of search area
             if(!pointInPolygon(eval_pose.pose.position,goal->explore_boundary.polygon)){
-                ROS_DEBUG("Robot not in exploration boundary, traveling to center");
-                if(success_) ROS_WARN("Robot left exploration boundary, returning to center");
+                
+                //check if robot has explored at least one frontier, and promote debug message to warning
+                if(success_){
+                    ROS_WARN("Robot left exploration boundary, returning to center");
+                }else{
+                    ROS_DEBUG("Robot not initially in exploration boundary, traveling to center");
+                }
                 //get current robot position in frame of exploration center
                 geometry_msgs::PointStamped eval_point;
                 eval_point.header = eval_pose.header;
@@ -142,24 +147,26 @@ private:
                 goal_pose.pose.position = goal->explore_center.point;
                 goal_pose.pose.orientation = tf::createQuaternionMsgFromYaw( yawOfVector(eval_point.point, goal->explore_center.point) );
 
-            }else if(getNextFrontier.call(srv)){ //if in boundary, try to find next frontier
+            }else if(getNextFrontier.call(srv)){ //if in boundary, try to find next frontier to search
 
                 ROS_DEBUG("Found frontier to explore");
                 success_ = true;
                 goal_pose = feedback_.next_frontier = srv.response.next_frontier;
                 retry_ = 5;
 
-            }else{ //if no boundary found, check if should retry
+            }else{ //if no frontier found, check if search is successful
                 ROS_DEBUG("Couldn't find a frontier");
 
-                //check if should retry
+                //search is succesful
                 if(retry_ == 0 && success_){
                     ROS_WARN("Finished exploring room");
                     as_.setSucceeded();
                     boost::unique_lock<boost::mutex> lock(move_client_lock_);
                     move_client_.cancelGoalsAtAndBeforeTime(ros::Time::now());
                     return;
-                }else if(retry_ == 0 || !ros::ok()){
+
+                }else if(retry_ == 0 || !ros::ok()){ //search is not successful
+
                     ROS_ERROR("Failed exploration");
                     as_.setAborted();
                     return;
@@ -170,6 +177,7 @@ private:
                 //try to find frontier again, without moving robot
                 continue;
             }
+            //if above conditional does not escape this loop step, search has a valid goal_pose
 
             //check if new goal is close to old goal, hence no need to resend
             if(!moving_ || !pointsAdjacent(move_client_goal_.target_pose.pose.position,goal_pose.pose.position,goal_aliasing_*0.5)){
@@ -184,15 +192,15 @@ private:
             }
 
             //check if continuous goal updating is enabled
-            if(frequency_ <= 0.0){
+            if(frequency_ > 0){
+                //sleep for specified frequency and then continue searching
+                rate.sleep();
+            }else{
                 //wait for movement to finish before continuing
                 while(ros::ok() && as_.isActive() && moving_){
-                    ros::WallDuration(0,1000000).sleep();
+                    ros::WallDuration(0.1).sleep();
                 }
-            }else{
-                rate.sleep();
             }
-
         }
 
         //goal should never be active at this point
@@ -234,7 +242,6 @@ private:
      */
     void doneMovingCb(const actionlib::SimpleClientGoalState& state, const move_base_msgs::MoveBaseResultConstPtr& result){
 
-        //TODO: Some kind of error recovery
         if (state == actionlib::SimpleClientGoalState::ABORTED){
             ROS_ERROR("Failed to move");
             as_.setAborted();
