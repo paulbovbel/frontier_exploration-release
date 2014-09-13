@@ -2,6 +2,12 @@
 Changelog for package frontier_exploration
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.2.2 (2014-09-13)
+------------------
+* clean up conditionals and comments for more logical flow
+* switch to shared from raw ptr
+* Contributors: Paul Bovbel
+
 0.2.1 (2014-04-15)
 ------------------
 * Update example launch files
