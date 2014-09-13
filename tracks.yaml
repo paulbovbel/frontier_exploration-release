@@ -34,7 +34,7 @@ tracks:
     last_version: 0.2.1
     name: frontier_exploration
     patches: null
-    release_inc: '4'
+    release_inc: '5'
     release_repo_url: null
     release_tag: :{version}
     ros_distro: indigo
