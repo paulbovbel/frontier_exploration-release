@@ -1,3 +1,24 @@
+## frontier_exploration (indigo) - 0.2.1-5
+
+The packages in the `frontier_exploration` repository were released into the `indigo` distro by running `/usr/bin/bloom-release frontier_exploration --track indigo --rosdistro indigo --new-track -d` on `Sat, 13 Sep 2014 19:23:17 -0000`
+
+The `frontier_exploration` package was released.
+
+Version of package(s) in repository `frontier_exploration`:
+- upstream repository: https://github.com/paulbovbel/frontier_exploration.git
+- release repository: unknown
+- rosdistro version: `null`
+- old version: `0.2.1-4`
+- new version: `0.2.1-5`
+
+Versions of tools used:
+- bloom version: `0.5.11`
+- catkin_pkg version: `0.2.4`
+- rosdep version: `0.10.30`
+- rosdistro version: `0.3.5`
+- vcstools version: `0.1.35`
+
+
 ## frontier_exploration (indigo) - 0.2.1-4
 
 The packages in the `frontier_exploration` repository were released into the `indigo` distro by running `/usr/bin/bloom-release frontier_exploration --track indigo --rosdistro indigo --new-track -d` on `Sat, 13 Sep 2014 19:20:36 -0000`
