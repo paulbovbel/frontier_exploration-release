@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package>
   <name>frontier_exploration</name>
-  <version>0.2.1</version>
-  <description>The frontier_exploration package provides a <a href="http://www.ros.org/wiki/costmap_2d">costmap_2d</a> layer plugin that implements helper functions required for frontier exploration. An <a href="http://www.ros.org/wiki/actionlib">actionlib</a> server and client are also provided as an implementation example.</description>
+  <version>0.2.2</version>
+  <description>Frontier exploration implementation in ROS, accepts exploration goals via <a href="http://www.ros.org/wiki/actionlib">actionlib</a> (Rviz UI provided), sends movement commands to <a href="http://www.ros.org/wiki/move_base">move_base</a>.</description>
   <author email="paul@bovbel.com">Paul Bovbel</author>
   <maintainer email="paul@bovbel.com">Paul Bovbel</maintainer>
 
