@@ -66,8 +66,6 @@ private:
             points.scale.x = points.scale.y = 0.1;
             line_strip.scale.x = 0.05;
 
-//            points.points.push_back(costmap_2d::toPoint(input_.polygon.points.front()));
-
             BOOST_FOREACH(geometry_msgs::Point32 point, input_.polygon.points){
                 line_strip.points.push_back(costmap_2d::toPoint(point));
                 points.points.push_back(costmap_2d::toPoint(point));
@@ -92,8 +90,9 @@ private:
      * @param point Received point from rviz
      */
     void pointCb(const geometry_msgs::PointStampedConstPtr& point){
-
+      
         double average_distance = polygonPerimeter(input_.polygon) / input_.polygon.points.size();
+
         if(waiting_for_center_){
             //flag is set so this is the last point of boundary polygon, i.e. center
 
