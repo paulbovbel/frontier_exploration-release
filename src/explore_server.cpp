@@ -125,7 +125,7 @@ private:
             }
 
             //check if robot is not within exploration boundary and needs to return to center of search area
-            if(!pointInPolygon(eval_pose.pose.position,goal->explore_boundary.polygon)){
+            if(goal->explore_boundary.polygon.points.size() > 0 && !pointInPolygon(eval_pose.pose.position,goal->explore_boundary.polygon)){
                 
                 //check if robot has explored at least one frontier, and promote debug message to warning
                 if(success_){
@@ -180,7 +180,7 @@ private:
             //if above conditional does not escape this loop step, search has a valid goal_pose
 
             //check if new goal is close to old goal, hence no need to resend
-            if(!moving_ || !pointsAdjacent(move_client_goal_.target_pose.pose.position,goal_pose.pose.position,goal_aliasing_*0.5)){
+            if(!moving_ || !pointsNearby(move_client_goal_.target_pose.pose.position,goal_pose.pose.position,goal_aliasing_*0.5)){
                 ROS_DEBUG("New exploration goal");
                 move_client_goal_.target_pose = goal_pose;
                 boost::unique_lock<boost::mutex> lock(move_client_lock_);
