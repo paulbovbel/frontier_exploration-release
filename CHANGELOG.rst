@@ -2,6 +2,11 @@
 Changelog for package frontier_exploration
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.2.5 (2015-04-08)
+------------------
+* Remove lazy initialization
+* Contributors: Paul Bovbel
+
 0.2.4 (2015-04-08)
 ------------------
 * Fix compiler optimization issue where perimeter is always 0
