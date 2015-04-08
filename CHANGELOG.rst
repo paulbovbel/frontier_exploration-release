@@ -2,6 +2,17 @@
 Changelog for package frontier_exploration
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.2.5 (2015-04-08)
+------------------
+* Remove lazy initialization
+* Contributors: Paul Bovbel
+
+0.2.4 (2015-04-08)
+------------------
+* Fix compiler optimization issue where perimeter is always 0
+* Allow empty polygon goals for unbounded exploration
+* Contributors: Paul Bovbel
+
 0.2.3 (2015-02-23)
 ------------------
 * Improve explore client user feedback
