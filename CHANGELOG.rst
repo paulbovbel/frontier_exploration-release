@@ -2,6 +2,20 @@
 Changelog for package frontier_exploration
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.2.4 (2015-04-08)
+------------------
+* Fix compiler optimization issue where perimeter is always 0
+* Allow empty polygon goals for unbounded exploration
+* Contributors: Paul Bovbel
+
+0.2.3 (2015-02-23)
+------------------
+* Improve explore client user feedback
+* removed common_msgs depency
+  since depending on metapackages is deprecated and all needed subpackages are included anyways
+* Add travis builds
+* Contributors: Henning Deeken, Paul Bovbel
+
 0.2.2 (2014-09-13)
 ------------------
 * clean up conditionals and comments for more logical flow
