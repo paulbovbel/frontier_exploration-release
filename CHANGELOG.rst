@@ -2,6 +2,11 @@
 Changelog for package frontier_exploration
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.3.0 (2015-05-04)
+------------------
+* adjust costmap lock to new interface
+* Contributors: Michael Görner
+
 0.2.5 (2015-04-08)
 ------------------
 * Remove lazy initialization
