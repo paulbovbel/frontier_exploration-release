@@ -1,0 +1,13 @@
+Source: ros-jade-frontier-exploration
+Section: misc
+Priority: extra
+Maintainer: Paul Bovbel <paul@bovbel.com>
+Build-Depends: debhelper (>= 9.0.0), libpcl-1.7-all-dev, ros-jade-actionlib, ros-jade-actionlib-msgs, ros-jade-catkin, ros-jade-costmap-2d, ros-jade-dynamic-reconfigure, ros-jade-geometry-msgs, ros-jade-message-generation, ros-jade-move-base-msgs, ros-jade-roscpp, ros-jade-std-msgs, ros-jade-tf, ros-jade-visualization-msgs
+Homepage: http://ros.org/wiki/frontier_exploration
+Standards-Version: 3.9.2
+
+Package: ros-jade-frontier-exploration
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libpcl-1.7-all, ros-jade-actionlib, ros-jade-actionlib-msgs, ros-jade-costmap-2d, ros-jade-dynamic-reconfigure, ros-jade-geometry-msgs, ros-jade-message-runtime, ros-jade-move-base-msgs, ros-jade-roscpp, ros-jade-std-msgs, ros-jade-tf, ros-jade-visualization-msgs
+Description: Implementation of frontier exploration for ROS, extending on the existing navigation stack (costmap_2d, move_base).
+ It accepts exploration goals via actionlib (Rviz UI provided), sends movement commands to move_base.
