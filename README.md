@@ -1,3 +1,26 @@
+## frontier_exploration (jade) - 0.3.1-0
+
+The packages in the `frontier_exploration` repository were released into the `jade` distro by running `/usr/bin/bloom-release -r jade -t jade frontier_exploration` on `Thu, 27 Oct 2016 00:44:17 -0000`
+
+The `frontier_exploration` package was released.
+
+Version of package(s) in repository `frontier_exploration`:
+
+- upstream repository: https://github.com/paulbovbel/frontier_exploration.git
+- release repository: unknown
+- rosdistro version: `null`
+- old version: `null`
+- new version: `0.3.1-0`
+
+Versions of tools used:
+
+- bloom version: `0.5.23`
+- catkin_pkg version: `0.2.10`
+- rosdep version: `0.11.5`
+- rosdistro version: `0.5.0`
+- vcstools version: `0.1.39`
+
+
 ## frontier_exploration (indigo) - 0.3.0-0
 
 The packages in the `frontier_exploration` repository were released into the `indigo` distro by running `/usr/bin/bloom-release frontier_exploration -t indigo -r indigo --edit` on `Mon, 04 May 2015 21:03:58 -0000`
