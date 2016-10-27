@@ -1,0 +1,13 @@
+Source: ros-kinetic-frontier-exploration
+Section: misc
+Priority: extra
+Maintainer: Paul Bovbel <paul@bovbel.com>
+Build-Depends: debhelper (>= 9.0.0), libpcl-dev, ros-kinetic-actionlib, ros-kinetic-actionlib-msgs, ros-kinetic-catkin, ros-kinetic-costmap-2d, ros-kinetic-dynamic-reconfigure, ros-kinetic-geometry-msgs, ros-kinetic-message-generation, ros-kinetic-move-base-msgs, ros-kinetic-roscpp, ros-kinetic-std-msgs, ros-kinetic-tf, ros-kinetic-visualization-msgs
+Homepage: http://ros.org/wiki/frontier_exploration
+Standards-Version: 3.9.2
+
+Package: ros-kinetic-frontier-exploration
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libpcl1.7, ros-kinetic-actionlib, ros-kinetic-actionlib-msgs, ros-kinetic-costmap-2d, ros-kinetic-dynamic-reconfigure, ros-kinetic-geometry-msgs, ros-kinetic-message-runtime, ros-kinetic-move-base-msgs, ros-kinetic-roscpp, ros-kinetic-std-msgs, ros-kinetic-tf, ros-kinetic-visualization-msgs
+Description: Implementation of frontier exploration for ROS, extending on the existing navigation stack (costmap_2d, move_base).
+ It accepts exploration goals via actionlib (Rviz UI provided), sends movement commands to move_base.
